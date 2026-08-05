@@ -50,6 +50,38 @@ def _model_dir() -> pathlib.Path:
 
 
 def _checkpoint_path() -> pathlib.Path:
+    # 1. Custom path from secrets or environment variable
+    custom_path_str = None
+    try:
+        custom_path_str = st.secrets.get("SAM3_MODEL_PATH", "")
+    except Exception:
+        pass
+    if not custom_path_str:
+        custom_path_str = os.environ.get("SAM3_MODEL_PATH", "")
+    
+    if custom_path_str:
+        custom_path = pathlib.Path(custom_path_str.strip())
+        if custom_path.exists():
+            return custom_path
+
+    # 2. Check standard sibling location (dash_ai/sam3_pant/checkpoints/sam3.pt)
+    # relative to DashAICapture_Streamlit root: ../dash_ai/sam3_pant/checkpoints/sam3.pt
+    here = pathlib.Path(__file__).resolve().parent.parent
+    sibling_path = here.parent / "dash_ai" / "sam3_pant" / "checkpoints" / "sam3.pt"
+    if sibling_path.exists():
+        return sibling_path
+
+    # 3. Check local models folder
+    local_path = here / "models" / "sam3.pt"
+    if local_path.exists():
+        return local_path
+
+    # 4. Check tmp path
+    tmp_path = pathlib.Path("/tmp/dash_models/sam3.pt")
+    if tmp_path.exists():
+        return tmp_path
+
+    # Default fallback path for downloading
     return _model_dir() / "sam3.pt"
 
 
