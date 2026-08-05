@@ -1,0 +1,47 @@
+# ─── DASH AI Capture — .gitignore ─────────────────────────────────
+
+# ── SAM 3 model weights (too large for GitHub, use external URL) ──
+models/
+*.pt
+*.pth
+*.ckpt
+*.bin
+/tmp/
+
+# ── Local Streamlit secrets ───────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── Captured user images (privacy) ───────────────────────────────
+dash_ai_captures/
+captures/
+*.jpg
+*.jpeg
+*.png
+
+# ── Python build / cache ──────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ──────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── IDE / OS ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ── Logs ─────────────────────────────────────────────────────────
+*.log
+logs/

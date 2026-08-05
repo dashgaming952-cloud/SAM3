@@ -1,0 +1,28 @@
+# DASH AI Capture — Requirements
+# Python 3.11+
+# Deploy: streamlit run app.py
+
+# ── Core ──────────────────────────────────────────────────────────
+streamlit>=1.35.0
+Pillow>=10.0.0
+opencv-python-headless>=4.9.0
+numpy>=1.26
+requests>=2.31.0
+
+# ── SAM 3 dependencies (needed for full GPU pipeline) ────────────
+# These are required when SAM3_MODEL_URL is configured and
+# the sam3 Python package is available on the deployment machine.
+#
+# On Streamlit Cloud (CPU-only, 1 GB RAM):
+#   SAM 3 will fail to load gracefully and fall back to the
+#   CPU Otsu segmentation.  Consider Modal/RunPod for GPU inference.
+#
+torch>=2.1.0
+torchvision>=0.16.0
+ftfy>=6.1.1
+regex
+# iopath>=0.1.10
+# huggingface_hub
+# einops
+# timm>=1.0.17
+# tqdm
